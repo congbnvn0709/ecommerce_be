@@ -12,5 +12,6 @@ public interface ColorMapper {
     @Mapping(target = "productList",ignore = true)
     Color toColorDto(ColorDTO colorDTO);
 
+    @Mapping(target = "productList",ignore = true)
     ColorDTO toEntityColor(Color color);
 }

@@ -8,6 +8,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring",uses = {ColorMapper.class})
 public interface ProductMapper {
@@ -18,10 +19,14 @@ public interface ProductMapper {
 
     @Mapping(target = "productCode",source = "code")
     @Mapping(target = "productName",source = "name")
-//    @Mapping(target = "color",ignore = true)
+    @Mapping(target = "color",qualifiedByName = "toColorDTO")
     ProductDTO toDto(Product product);
 
     List<ProductDTO> toDtos(List<Product> datas);
 
+    @Named(value = "toColorDTO")
+    default List<String> toColorDTO(List<Color> colorList){
+        return colorList.stream().map(item-> item.getCode()).collect(Collectors.toList());
+    }
 
 }

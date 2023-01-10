@@ -1,13 +1,11 @@
 package com.example.ecommerce_be.entity;
-
-
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Timestamp;
+import javax.persistence.*;
+
+import java.util.Date;
 import java.util.List;
 
 @Table(name = "product")
@@ -18,7 +16,7 @@ import java.util.List;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(nullable = false, unique = true)
     private String code;
@@ -38,8 +36,8 @@ public class Product {
     private List<Color> color;
     private Long price;
 
-    private Timestamp createdDate;
-    private Timestamp updatedDate;
+    private Date createdDate;
+    private Date updatedDate;
     private String createdBy;
     private String updatedBy;
 }
