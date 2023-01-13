@@ -18,9 +18,11 @@ public class ProductDTO implements Serializable {
     private String productName;
     private String description;
     private String status;
-    private List<String> color;
+    private List<String> colors;
     private Long price;
     private Integer isActive;
+    private String image;
+    private String image_overlay;
     private Date createdDate;
     private Date updatedDate;
     private String createdBy;

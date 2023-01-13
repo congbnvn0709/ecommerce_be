@@ -7,12 +7,15 @@ import com.example.ecommerce_be.dto.ProductDTO;
 import com.example.ecommerce_be.entity.Color;
 import com.example.ecommerce_be.entity.Product;
 import com.example.ecommerce_be.mapper.ProductMapper;
+import com.example.ecommerce_be.payload.ProductPayloadSearch;
 import com.example.ecommerce_be.repositories.ColorRepository;
 import com.example.ecommerce_be.repositories.ProductRepository;
 import com.example.ecommerce_be.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
+import  com.example.ecommerce_be.constants.Constants;
 import javax.transaction.Transactional;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -32,20 +35,17 @@ public class ProductService_impl implements ProductService {
     @Autowired
     private ColorRepository colorRepository;
 
-    @Override
-    public List<ProductDTO> getAllProduct() {
-        return productMapper.toDtos(productRepository.getAllProduct());
-    }
 
     @Override
     @Transactional
     public ProductDTO addNewProduct(ProductDTO productDTO) {
-        List<String> lstColor = productDTO.getColor();
+        List<String> lstColor = productDTO.getColors();
         Product product = productMapper.toEntity(productDTO);
         List<Color> colorList = lstColor.stream().map(item ->
                 colorRepository.searchColorByCode(item)
         ).collect(Collectors.toList());
-        product.setColor(colorList);
+        product.setColors(colorList);
+        product.setIsActive(Constants.ACTIVE);
         product.setStatus(String.valueOf(Status.NEW));
         product.setCreatedDate(new Date());
         product.setUpdatedDate(new Date());
@@ -80,9 +80,13 @@ public class ProductService_impl implements ProductService {
         }
     }
 
+    @Override
+    public Page<ProductDTO> searchProduct(ProductPayloadSearch payloadSearch, Pageable pageable) {
+        return productRepository.searchProduct(payloadSearch.getFromPrice(),payloadSearch.getToprice(),payloadSearch.getColors(),pageable).map(item -> productMapper.toDto(item));
+    }
+
     public Optional<Product> checkProduct(Long id) {
         return productRepository.getProductById(id);
     }
-
 
 }

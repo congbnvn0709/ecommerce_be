@@ -33,9 +33,10 @@ public class Product {
     @ManyToMany(targetEntity = Color.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "color_product", joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "color_id"))
-    private List<Color> color;
+    private List<Color> colors;
     private Long price;
-
+    private String image;
+    private String image_overlay;
     private Date createdDate;
     private Date updatedDate;
     private String createdBy;

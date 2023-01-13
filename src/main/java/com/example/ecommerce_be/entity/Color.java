@@ -20,6 +20,6 @@ public class Color {
     private String code;
 
     private  String name;
-    @ManyToMany(mappedBy = "color",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "colors",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Product> productList;
 }
