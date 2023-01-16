@@ -5,6 +5,8 @@ import com.example.ecommerce_be.entity.Color;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.List;
+
 
 @Mapper(componentModel = "spring")
 public interface ColorMapper {
@@ -14,4 +16,6 @@ public interface ColorMapper {
 
     @Mapping(target = "productList",ignore = true)
     ColorDTO toEntityColor(Color color);
+
+    List<ColorDTO> toListColorDTO(List<Color> colorList);
 }
