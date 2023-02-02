@@ -1,7 +1,5 @@
 package com.example.ecommerce_be.entity;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -34,11 +32,22 @@ public class Product {
     @JoinTable(name = "color_product", joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "color_id"))
     private List<Color> colors;
+
     private Long price;
+
     private String image;
+
     private String image_overlay;
+
+    @ManyToOne
+    @JoinColumn(name = "categoryId")
+    private Category category;
+
     private Date createdDate;
+
     private Date updatedDate;
+
     private String createdBy;
+
     private String updatedBy;
 }

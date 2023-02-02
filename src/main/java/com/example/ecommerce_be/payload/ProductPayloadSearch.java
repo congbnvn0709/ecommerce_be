@@ -10,5 +10,5 @@ import java.util.List;
 public class ProductPayloadSearch {
     private List<String> colors;
     private Long fromPrice;
-    private Long toprice;
+    private Long toPrice;
 }

@@ -82,7 +82,10 @@ public class ProductService_impl implements ProductService {
 
     @Override
     public Page<ProductDTO> searchProduct(ProductPayloadSearch payloadSearch, Pageable pageable) {
-        return productRepository.searchProduct(payloadSearch.getFromPrice(),payloadSearch.getToprice(),payloadSearch.getColors(),pageable).map(item -> productMapper.toDto(item));
+        if(payloadSearch.getColors() != null && payloadSearch.getColors().isEmpty()){
+            payloadSearch.setColors(null);
+        }
+        return productRepository.searchProduct(payloadSearch.getFromPrice(),payloadSearch.getToPrice(),payloadSearch.getColors(),pageable).map(item -> productMapper.toDto(item));
     }
 
     public Optional<Product> checkProduct(Long id) {

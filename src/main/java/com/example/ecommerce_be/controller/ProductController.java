@@ -42,6 +42,6 @@ public class ProductController {
 
     @GetMapping("/getById/{id}")
     ResponseEntity getProductById(@PathVariable(name="id") Long id){
-        return ResponseEntity.ok(productService.getProductById(id));
+        return ResponseEntity.ok(new BaseResponse(productService.getProductById(id),"Thành công",StatusCode.SUCCESS));
     }
 }
